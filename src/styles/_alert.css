@@ -1,0 +1,42 @@
+.alert {
+  position: fixed;
+  top: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--accent-color);
+  color: white;
+  padding: 1rem 6rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  font-weight: bold;
+  z-index: 999;
+  animation: fadeInOut 4s ease forwards;
+  overflow: hidden;
+}
+
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  animation: progressShrink 4s linear forwards;
+  transform-origin: left;
+}
+
+@keyframes progressShrink {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  90% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+}

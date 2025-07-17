@@ -6,6 +6,8 @@
 @import './_modal.css';
 @import './_responsive.css';
 @import './_footer.css';
+@import './_alert.css';
+
 
 * {
   box-sizing: border-box;

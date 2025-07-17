@@ -1,16 +1,20 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
+import { AlertProvider } from './components/AlertProvider';
 
 function App() {
 
   return (
     <>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </Router>
+      <AlertProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </Router>
+      </AlertProvider>
+
     </>
   )
 }

@@ -22,19 +22,18 @@ export const useTasks = () => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
 
-const addTask = ({ text, tags = [] }) => {
-  const trimmed = text.trim();
-  if (trimmed.length === 0) return;
+  const addTask = ({ text, tags = [] }) => {
+    const trimmed = text.trim();
+    if (trimmed.length === 0) return;
 
-  const newTask = {
-    id: Date.now(),
-    text: trimmed,
-    completed: false,
-    tags,
+    const newTask = {
+      id: Date.now(),
+      text: trimmed,
+      completed: false,
+      tags,
+    };
+    setTasks((prev) => [newTask, ...prev]);
   };
-  setTasks((prev) => [newTask, ...prev]);
-};
-
 
   const deleteTask = (id) => {
     setTasks((prev) => prev.filter((task) => task.id !== id));
