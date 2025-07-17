@@ -6,6 +6,8 @@
   padding: 20px;
   box-shadow: 0 0 10px var(--shadow-color);
   margin: 1rem;
+  position: relative; 
+  z-index: 10;  
 }
 
 .taskForm {
@@ -90,3 +92,74 @@
   width: 1.5rem;
   height: 1.5rem;
 } 
+
+.tag-select-container {
+  position: relative; 
+  margin-top: 0.5rem;
+  z-index: 20; 
+}
+
+.selected-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.3rem;
+}
+
+.selected-tag {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 0.1rem 0.7rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.selected-tag button {
+  background: none;
+  border: none;
+  color: white;
+  margin-left: 0.3rem;
+  cursor: pointer;
+}
+
+.tag-input {
+  width: 100%;
+  padding: 0.3rem;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+}
+
+.tag-suggestions {
+  position: absolute;
+  background: var(--secondary-color);
+  color: var(--text-color);
+  list-style: none;
+  padding: 0;
+  margin: 0.3rem 0 0;
+  border-radius: 8px;
+  max-height: 150px;
+  overflow-y: auto;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 999;
+  border: 2px solid var(--border-color);
+
+}
+
+.tag-suggestions li {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.tag-suggestions li:hover {
+  background-color: var(--hover-color);
+}
+
+.no-match {
+  opacity: 0.6;
+  font-style: italic;
+  padding: 0.5rem;
+}

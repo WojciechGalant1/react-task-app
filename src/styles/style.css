@@ -48,6 +48,8 @@ main {
   max-width: 600px;
   margin: auto;
   width: 100%;
+  position: relative; 
+  z-index: 0;
 }
 
 main div {
@@ -57,3 +59,4 @@ main div {
 footer {
   margin-top: auto;
 }
+

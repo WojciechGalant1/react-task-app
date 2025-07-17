@@ -21,6 +21,13 @@ export const TaskItem = ({ task, onToggleComplete, onDelete }) => {
       </label>
       <label htmlFor={`task-${task.id}`} className="task-text">
         {task.text} <span className="task-date">({formattedDate})</span>
+        {task.tags?.length > 0 && (
+          <div className="task-tags">
+            {task.tags.map((tag, i) => (
+              <span key={i} className="task-tag">{tag}</span>
+            ))}
+          </div>
+        )}
       </label>
       <button
         className="delete-button"
