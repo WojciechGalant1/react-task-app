@@ -1,0 +1,88 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--secondary-color);
+  padding: 0.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 0 10px var(--shadow-heavy);
+  margin-bottom: 2rem;
+  border: 2px solid var(--border-color);
+}
+
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: linear-gradient(to right,
+      var(--accent-color),
+      var(--nav-gradient-middle),
+      var(--accent-color));
+  background-size: 200%;
+  background-position: 0% center;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  transition: background-position 0.5s ease-in-out;
+  animation: gradient-move 5s infinite linear alternate;
+}
+
+@keyframes gradient-move {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 100% center;
+  }
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.nav-links a:hover {
+  color: var(--accent-color);
+  box-shadow:
+    inset 1px 1px 2px var(--shadow-heavy),
+    inset -1px -1px 2px var(--shadow-light);
+  background-color: var(--task-hover);
+}
+
+.nav-links a:active,
+.nav-links a:focus {
+  box-shadow:
+    inset 3px 3px 6px var(--shadow-inset-dark),
+    inset -3px -3px 6px var(--shadow-inset-light);
+}
+
+.nav-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  transition: transform 0.2s ease-in-out;
+}
+
+.nav-links a:hover .nav-icon {
+  transform: scale(1.1);
+}
+
+.github-icon {
+  filter: invert(1);
+  transition: filter 0.3s ease-in-out;
+}
+
+body.light-theme .github-icon {
+  filter: none;
+} 

@@ -1,0 +1,126 @@
+.tasks {
+  margin: 1rem;
+}
+
+.taskList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.empty-message {
+  text-align: center;
+  color: var(--empty-message-color);
+  font-style: italic;
+  padding: 2rem;
+  background: var(--secondary-color);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: var(--task-bg);
+  border: 1px solid var(--task-border);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.task:hover {
+  background: var(--task-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.checkboxCustom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid var(--checkbox-border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--smooth-transition);
+  flex-shrink: 0;
+}
+
+.checkboxCustom:hover {
+  border-color: var(--accent-color);
+}
+
+.checkboxCustom svg {
+  width: 1rem;
+  height: 1rem;
+  stroke: transparent;
+  stroke-width: 2;
+  transition: var(--smooth-transition);
+}
+
+.checkboxCustom:hover svg {
+  stroke: var(--accent-color);
+}
+
+input[type="checkbox"]:checked~.checkboxCustom {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+input[type="checkbox"]:checked~.checkboxCustom svg {
+  stroke: white;
+}
+
+input[type="checkbox"]:checked~.task-text {
+  text-decoration: line-through;
+  opacity: 0.7;
+  color: var(--text-color);
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+.task-text {
+  flex: 1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+.task-date {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-left: 0.5rem;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  color: var(--delete);
+  flex-shrink: 0;
+}
+
+.delete-button svg {
+  width: 1rem;
+  height: 1rem;
+  transition: all 0.2s ease;
+}
+
+.delete-button:hover {
+  background-color: var(--delete-hover);
+  color: white;
+  transform: scale(1.1);
+}
+
+.delete-button:hover svg {
+  transform: rotate(90deg);
+} 
