@@ -6,6 +6,8 @@ import { TaskList } from '../components/TaskList';
 import { TaskControls } from '../components/TaskControls';
 import { Header } from '../components/Header';
 import { OptionsModal } from '../components/OptionsModal';
+import { Background } from '../components/Background';
+import { Footer } from '../components/Footer';
 
 const Home = () => {
   const {
@@ -17,6 +19,7 @@ const Home = () => {
     setFilter,
     sort,
     setSort,
+    clearAllTasks,
   } = useTasks();
 
   const { theme, toggleTheme } = useTheme();
@@ -24,6 +27,7 @@ const Home = () => {
 
   return (
     <>
+    <Background />
     <Header onOpenModal={() => setIsModalOpen(true)} />
 
     <OptionsModal
@@ -31,6 +35,7 @@ const Home = () => {
         onClose={() => setIsModalOpen(false)}
         theme={theme}
         onToggleTheme={toggleTheme}
+        onClearAll={clearAllTasks}
       />
       
     <main>
@@ -51,7 +56,7 @@ const Home = () => {
       </div>
       
     </main>
-   
+   <Footer />
     </>
     
   );

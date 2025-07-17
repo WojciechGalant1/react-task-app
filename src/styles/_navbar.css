@@ -6,8 +6,8 @@
   padding: 0.5rem 2rem;
   border-radius: 16px;
   box-shadow: 0 0 10px var(--shadow-heavy);
-  margin-bottom: 2rem;
   border: 2px solid var(--border-color);
+  margin: 2.5rem 4rem;
 }
 
 .nav-logo {

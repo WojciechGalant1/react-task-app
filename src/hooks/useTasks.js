@@ -8,14 +8,14 @@ export const useTasks = () => {
   const [sort, setSort] = useState('newest');      // 'newest' | 'oldest' | 'az' | 'za'
 
   const [tasks, setTasks] = useState(() => {
-  try {
-    const stored = localStorage.getItem('tasks');
-    return stored ? JSON.parse(stored) : [];
-  } catch (e) {
-    console.error('Failed to parse tasks from localStorage:', e);
-    return [];
-  }
-});
+    try {
+      const stored = localStorage.getItem('tasks');
+      return stored ? JSON.parse(stored) : [];
+    } catch (e) {
+      console.error('Failed to parse tasks from localStorage:', e);
+      return [];
+    }
+  });
 
   // Save to localStorage on change
   useEffect(() => {
@@ -51,6 +51,12 @@ export const useTasks = () => {
     sort
   );
 
+  const clearAllTasks = () => {
+    localStorage.removeItem('tasks');
+    setTasks([]);
+  };
+
+
   return {
     tasks: visibleTasks,
     addTask,
@@ -60,19 +66,20 @@ export const useTasks = () => {
     setFilter,
     sort,
     setSort,
+    clearAllTasks,
   };
 };
 
-  //const [tasks, setTasks] = useState([]);
-  // Load from localStorage on mount
-  // useEffect(() => {
-  //   try {
-  //     const stored = localStorage.getItem('tasks');
-  //     if (stored) setTasks(JSON.parse(stored));
-  //   } catch (e) {
-  //     console.error('Failed to parse tasks from localStorage:', e);
-  //   }
-  // }, []);
+//const [tasks, setTasks] = useState([]);
+// Load from localStorage on mount
+// useEffect(() => {
+//   try {
+//     const stored = localStorage.getItem('tasks');
+//     if (stored) setTasks(JSON.parse(stored));
+//   } catch (e) {
+//     console.error('Failed to parse tasks from localStorage:', e);
+//   }
+// }, []);
 
 
 // import { useState, useEffect } from 'react';

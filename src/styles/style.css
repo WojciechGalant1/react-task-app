@@ -5,13 +5,13 @@
 @import './_controls.css';
 @import './_modal.css';
 @import './_responsive.css';
+@import './_footer.css';
 
 * {
   box-sizing: border-box;
 }
 
-html,
-body {
+html, body, #root {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -25,18 +25,21 @@ html {
 }
 
 body {
-  background: var(--background);
-  padding: 2rem;
-  background-size: 300% 100%;
-  animation: background-move var(--background-animation-duration) linear infinite alternate;
+  /* Use a dynamic gradient background that animates between start and end colors */
+  background: linear-gradient(120deg, var(--background-start), var(--background-end), var(--background-start));
+  background-size: 200% 200%;
+  animation: themed-background-move var(--background-animation-duration) ease-in-out infinite alternate;
 }
 
-@keyframes background-move {
+@keyframes themed-background-move {
   0% {
     background-position: 0% 50%;
   }
-  100% {
+  50% {
     background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
@@ -49,4 +52,8 @@ main {
 
 main div {
   backdrop-filter: blur(10px);
+}
+
+footer {
+  margin-top: auto;
 }

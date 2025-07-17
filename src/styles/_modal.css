@@ -113,3 +113,38 @@ input:checked+.slider {
 input:checked+.slider:before {
   transform: translateX(26px);
 } 
+
+.clear-button {
+  background-color: var(--task-hover);
+  border-radius: 8px;
+  padding: 0.4rem 0.6rem;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-button svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  stroke: var(--text-color);
+  transition: transform 0.2s ease;
+}
+
+.clear-button:hover {
+  background-color: var(--accent-color);
+  box-shadow:
+    inset 1px 1px 3px var(--shadow-inset-dark),
+    inset -1px -1px 3px var(--shadow-inset-light);
+  transform: translateY(-1px);
+}
+
+.clear-button:active {
+  transform: scale(0.96);
+  box-shadow:
+    inset 2px 2px 4px var(--shadow-inset-dark),
+    inset -2px -2px 4px var(--shadow-inset-light);
+}
+
+.clear-button:hover svg {
+  transform: scale(1.1);
+}
