@@ -9,6 +9,7 @@ import { OptionsModal } from '../components/OptionsModal';
 import { Background } from '../components/Background';
 import { Footer } from '../components/Footer';
 import { useAlert } from '../components/AlertProvider';
+import { ConfirmModal } from '../components/ConfirmModal';
 
 const Home = () => {
   const {
@@ -23,10 +24,18 @@ const Home = () => {
     clearAllTasks,
   } = useTasks();
 
+  const { showAlert } = useAlert();
   const { theme, toggleTheme } = useTheme();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [confirmModal, setConfirmModal] = useState({ isOpen: false, message: '', onConfirm: null });
 
-  const { showAlert } = useAlert();
+  const openConfirm = (message, onConfirm) => {
+    setConfirmModal({ isOpen: true, message, onConfirm });
+  };
+
+  const closeConfirm = () => {
+    setConfirmModal({ ...confirmModal, isOpen: false });
+  };
 
   const handleAdd = (task) => {
     addTask(task);
@@ -34,8 +43,11 @@ const Home = () => {
   };
 
   const handleDelete = (task) => {
-    deleteTask(task);
-    showAlert("Task deleted!");
+    openConfirm("Are you sure you want to delete this task?", () => {
+      deleteTask(task);
+      showAlert("Task deleted!");
+      closeConfirm();
+    });
   };
 
   const handleComplete = (id) => {
@@ -48,8 +60,11 @@ const Home = () => {
   };
 
   const handleClearAllTasks = () => {
-    clearAllTasks();
-    showAlert("All tasks deleted!");
+    openConfirm("This will delete all tasks. Continue?", () => {
+      clearAllTasks();
+      showAlert("All tasks deleted!");
+      closeConfirm();
+    });
   };
 
   return (
@@ -84,6 +99,12 @@ const Home = () => {
 
       </main>
       <Footer />
+      <ConfirmModal
+        isOpen={confirmModal.isOpen}
+        message={confirmModal.message}
+        onConfirm={confirmModal.onConfirm}
+        onCancel={closeConfirm}
+      />
     </>
 
   );

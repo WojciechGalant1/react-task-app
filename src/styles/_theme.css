@@ -30,15 +30,15 @@
 
 body.light-theme {
   --background: linear-gradient(120deg, #f3d1ff, #ffe0f0, #f3d1ff);
-  --background-start: #f3d1ff; /* soft lavender */
-  --background-end: #ffe0f0;   /* soft pink */
+  --background-start: #f3d1ff; 
+  --background-end: #ffe0f0;   
   --background-animation-duration: 10s;
-  --secondary-color: #fff5fb; /* slightly deeper pastel for cards */
+  --secondary-color: #fff5fb; 
   --accent-color: #ff94e1;
   --hover-color: #f26fc5;
   --text-color: #222035;
   --input-bg: #fff8fd;
-  --task-bg: #f7eaff; /* slightly deeper for tasks */
+  --task-bg: #f7eaff; 
   --task-hover: #f3dbff;
   --border-color: #eccff4;
   --delete: #ff6b81;

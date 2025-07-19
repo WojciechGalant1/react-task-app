@@ -13,13 +13,12 @@ export const Background = () => {
 
   // Bubble config
   const BUBBLE_COUNT = 36;
-  const BUBBLE_MIN_SIZE = 18;
-  const BUBBLE_MAX_SIZE = 48;
+  const BUBBLE_MIN_SIZE = 8;
+  const BUBBLE_MAX_SIZE = 58;
   const BUBBLE_MIN_SPEED = 0.15;
   const BUBBLE_MAX_SPEED = 0.45;
   const BUBBLE_OPACITY = 0.18;
 
-  // Get theme colors
   function getThemeColors() {
     const accent = getCSSVar('--accent-color') || '#a972f9';
     const start = getCSSVar('--background-start') || '#0f0f17';
@@ -27,7 +26,6 @@ export const Background = () => {
     return [accent, start, end];
   }
 
-  // Create bubbles
   function createBubbles(width, height) {
     const [accent, start, end] = getThemeColors();
     const palette = [accent, start, end];
@@ -66,7 +64,6 @@ export const Background = () => {
     window.addEventListener('resize', resize);
 
     function draw() {
-      // If theme changed, update bubble colors
       const currentTheme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
       if (currentTheme !== themeRef.current) {
         themeRef.current = currentTheme;
@@ -83,7 +80,7 @@ export const Background = () => {
         ctx.fill();
         ctx.globalAlpha = 1;
         ctx.shadowBlur = 0;
-        // Animate
+       
         b.y -= b.speed;
         b.x += b.dx;
         if (b.y + b.r < 0) {
