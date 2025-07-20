@@ -29,6 +29,11 @@ export const TaskItem = ({ task, onToggleComplete, onDelete }) => {
           </div>
         )}
       </label>
+      {task.priority && (
+        <div className={`task-priority priority-${task.priority.toLowerCase()}`}>
+          Priority: {task.priority}
+        </div>
+      )}
       <button
         className="delete-button"
         onClick={() => onDelete(task.id)}

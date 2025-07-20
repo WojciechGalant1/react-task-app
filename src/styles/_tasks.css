@@ -166,3 +166,27 @@ input[type="checkbox"] {
 .task-tag:hover {
   background-color: var(--hover-color);
 }
+
+.task-priority {
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.priority-low {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+.priority-medium {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.priority-high {
+  background-color: #f8d7da;
+  color: #721c24;
+}

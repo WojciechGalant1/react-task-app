@@ -22,7 +22,7 @@ export const useTasks = () => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
 
-  const addTask = ({ text, tags = [] }) => {
+  const addTask = ({ text, tags = [], priority = "Low" }) => {
     const trimmed = text.trim();
     if (trimmed.length === 0) return;
 
@@ -31,6 +31,7 @@ export const useTasks = () => {
       text: trimmed,
       completed: false,
       tags,
+      priority,
     };
     setTasks((prev) => [newTask, ...prev]);
   };

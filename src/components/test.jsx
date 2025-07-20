@@ -7,7 +7,7 @@ export const TaskForm = ({ onAddTask }) => {
   const [input, setInput] = useState('');
   const [selectedTags, setSelectedTags] = useState([]);
   const [tagInput, setTagInput] = useState('');
-  const [isFocused, setIsFocused] = useState(false); 
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const [priority, setPriority] = useState('');
 
 
@@ -27,7 +27,7 @@ export const TaskForm = ({ onAddTask }) => {
     setInput('');
     setSelectedTags([]);
     setTagInput('');
-    setPriority('');
+    setShowSuggestions(false);
   };
 
   const filteredTagOptions = allTags.filter(
@@ -39,11 +39,23 @@ export const TaskForm = ({ onAddTask }) => {
   const handleAddTag = (tag) => {
     setSelectedTags([...selectedTags, tag]);
     setTagInput('');
+    setShowSuggestions(false);
   };
 
   const handleRemoveTag = (tag) => {
     setSelectedTags(selectedTags.filter(t => t !== tag));
   };
+
+  const handleClickOutside = (e) => {
+    if (tagRef.current && !tagRef.current.contains(e.target)) {
+      setShowSuggestions(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <div className="wrapper">
@@ -56,7 +68,7 @@ export const TaskForm = ({ onAddTask }) => {
           placeholder="Task name..."
         />
 
-        <div className="tag-select-container">
+        <div className="tag-select-container" ref={tagRef}>
           <div className="selected-tags">
             {selectedTags.map(tag => (
               <span key={tag} className="selected-tag">
@@ -65,22 +77,21 @@ export const TaskForm = ({ onAddTask }) => {
               </span>
             ))}
           </div>
-          
           <input
             type="text"
             value={tagInput}
-            onChange={(e) => setTagInput(e.target.value)}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
+            onChange={(e) => {
+              setTagInput(e.target.value);
+              setShowSuggestions(true);
+            }}
             placeholder="Add task category..."
             className="tag-input"
           />
-
-          {isFocused && tagInput && (
+          {showSuggestions && tagInput && (
             <ul className="tag-suggestions">
               {filteredTagOptions.length > 0 ? (
                 filteredTagOptions.map(tag => (
-                  <li key={tag} onMouseDown ={() => handleAddTag(tag)}>
+                  <li key={tag} onClick={() => handleAddTag(tag)}>
                     {tag}
                   </li>
                 ))
