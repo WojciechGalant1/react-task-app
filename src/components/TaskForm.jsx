@@ -20,7 +20,8 @@ export const TaskForm = ({ onAddTask }) => {
 
     const task = {
       text: input,
-      tags: selectedTags
+      tags: selectedTags,
+      priority: priority
     };
 
     onAddTask(task);
