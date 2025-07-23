@@ -190,3 +190,12 @@ input[type="checkbox"] {
   background-color: #f8d7da;
   color: #721c24;
 }
+
+.task-dates {
+  font-size: 0.85rem;
+  color: var(--text-color);
+  margin-top: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}

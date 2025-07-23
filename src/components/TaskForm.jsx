@@ -7,8 +7,10 @@ export const TaskForm = ({ onAddTask }) => {
   const [input, setInput] = useState('');
   const [selectedTags, setSelectedTags] = useState([]);
   const [tagInput, setTagInput] = useState('');
-  const [isFocused, setIsFocused] = useState(false); 
+  const [isFocused, setIsFocused] = useState(false);
   const [priority, setPriority] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
 
   const tagRef = useRef(null);
@@ -21,7 +23,9 @@ export const TaskForm = ({ onAddTask }) => {
     const task = {
       text: input,
       tags: selectedTags,
-      priority: priority
+      priority: priority,
+      startDate,
+      endDate,
     };
 
     onAddTask(task);
@@ -29,6 +33,8 @@ export const TaskForm = ({ onAddTask }) => {
     setSelectedTags([]);
     setTagInput('');
     setPriority('');
+    setStartDate('');
+    setEndDate('');
   };
 
   const filteredTagOptions = allTags.filter(
@@ -66,7 +72,7 @@ export const TaskForm = ({ onAddTask }) => {
               </span>
             ))}
           </div>
-          
+
           <input
             type="text"
             value={tagInput}
@@ -81,7 +87,7 @@ export const TaskForm = ({ onAddTask }) => {
             <ul className="tag-suggestions">
               {filteredTagOptions.length > 0 ? (
                 filteredTagOptions.map(tag => (
-                  <li key={tag} onMouseDown ={() => handleAddTag(tag)}>
+                  <li key={tag} onMouseDown={() => handleAddTag(tag)}>
                     {tag}
                   </li>
                 ))
@@ -104,6 +110,28 @@ export const TaskForm = ({ onAddTask }) => {
             <option value="Medium">Medium</option>
             <option value="High">High</option>
           </select>
+        </div>
+
+        <div className="date-row-container">
+          <div className="date-row">
+            <label htmlFor="start-date">Start date:</label>
+            <input
+              type="date"
+              id="start-date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+            />
+          </div>
+
+          <div className="date-row">
+            <label htmlFor="end-date">End date:</label>
+            <input
+              type="date"
+              id="end-date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+            />
+          </div>
         </div>
 
         <button

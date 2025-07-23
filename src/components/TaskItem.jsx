@@ -28,6 +28,17 @@ export const TaskItem = ({ task, onToggleComplete, onDelete }) => {
             ))}
           </div>
         )}
+
+        {(task.startDate || task.endDate) && (
+          <div className="task-dates">
+            {task.startDate && (
+              <div><strong>Start:</strong> {new Date(task.startDate).toLocaleDateString('pl-PL')}</div>
+            )}
+            {task.endDate && (
+              <div><strong>End:</strong> {new Date(task.endDate).toLocaleDateString('pl-PL')}</div>
+            )}
+          </div>
+        )}
       </label>
       {task.priority && (
         <div className={`task-priority priority-${task.priority.toLowerCase()}`}>

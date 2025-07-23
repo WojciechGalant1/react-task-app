@@ -198,3 +198,36 @@
   border-color: var(--accent-color);
   outline: none;
 } */
+
+/* date picker */
+
+.date-row-container {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap; 
+}
+
+.date-row {
+  display: flex;
+  flex-direction: column;
+  flex: 1; 
+  min-width: 100px; 
+}
+
+.date-row label {
+  font-size: 0.9rem;
+  margin-bottom: 0.2rem;
+  color: var(--text-color);
+}
+
+.date-row input[type="date"] {
+  padding: 0.4rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  font-size: 0.95rem;
+}
+
+
+
