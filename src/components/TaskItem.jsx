@@ -20,7 +20,24 @@ export const TaskItem = ({ task, onToggleComplete, onDelete }) => {
         </svg>
       </label>
       <label htmlFor={`task-${task.id}`} className="task-text">
-        {task.text} <span className="task-date">({formattedDate})</span>
+        {task.text} 
+        {/* <span className="task-date">({formattedDate})</span> */}
+
+        {(task.startDate || task.endDate) && (
+          <div className="task-dates">
+            {task.startDate && (
+              <div><strong>Start:</strong> {new Date(task.startDate).toLocaleDateString('pl-PL')} <strong>End:</strong> {new Date(task.endDate).toLocaleDateString('pl-PL')}</div>
+            )}
+
+            {/* {task.endDate && (
+              <div><strong>End:</strong> {new Date(task.endDate).toLocaleDateString('pl-PL')}</div>
+            )} */}
+            
+          </div>
+        )}
+      </label>
+
+      <div className='task-meta'>
         {task.tags?.length > 0 && (
           <div className="task-tags">
             {task.tags.map((tag, i) => (
@@ -28,23 +45,13 @@ export const TaskItem = ({ task, onToggleComplete, onDelete }) => {
             ))}
           </div>
         )}
-
-        {(task.startDate || task.endDate) && (
-          <div className="task-dates">
-            {task.startDate && (
-              <div><strong>Start:</strong> {new Date(task.startDate).toLocaleDateString('pl-PL')}</div>
-            )}
-            {task.endDate && (
-              <div><strong>End:</strong> {new Date(task.endDate).toLocaleDateString('pl-PL')}</div>
-            )}
+        {task.priority && (
+          <div className={`task-priority priority-${task.priority.toLowerCase()}`}>
+            Priority: {task.priority}
           </div>
         )}
-      </label>
-      {task.priority && (
-        <div className={`task-priority priority-${task.priority.toLowerCase()}`}>
-          Priority: {task.priority}
-        </div>
-      )}
+      </div>
+
       <button
         className="delete-button"
         onClick={() => onDelete(task.id)}

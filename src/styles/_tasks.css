@@ -45,6 +45,14 @@ body.light-theme .wrapper {
   transition: all 0.2s ease;
 }
 
+.task-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.3rem;
+  min-width: 120px;
+}
+
 body.light-theme .task {
   box-shadow: 0 2px 12px 0 rgba(200, 150, 255, 0.08), 0 1px 4px 0 rgba(255, 200, 240, 0.08);
   border: 1.5px solid var(--task-border);
