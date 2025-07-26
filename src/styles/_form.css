@@ -167,7 +167,7 @@
 .priority-slider {
   display: flex;
   justify-content: space-between;
-  margin-top: 1rem;
+
   gap: 0.5rem;
 }
 
