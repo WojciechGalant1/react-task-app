@@ -4,13 +4,13 @@
   --background-end: #1a1a25;
   --background-animation-duration: 10s;
   --secondary-color: #1e1e2e;
-  --accent-color: #a972f9; 
-  --hover-color: #c084fc;  
+  --accent-color: #a972f9;
+  --hover-color: #c084fc;
   --text-color: #f8f8f8;
   --input-bg: #1b1b29;
   --task-bg: #262631;
   --task-hover: #2e2e3d;
-  --border-color: #5a4b81; 
+  --border-color: #5a4b81;
   --delete: #bb3b3b;
   --delete-hover: #ff3e6c;
   --shadow-color: rgba(0, 0, 0, 0.5);
@@ -19,26 +19,35 @@
   --shadow-inset-dark: rgba(0, 0, 0, 0.7);
   --shadow-inset-light: rgba(255, 255, 255, 0.1);
   --empty-message-color: #999;
-  --input-focus-outline: rgba(169, 114, 249, 0.3); 
+  --input-focus-outline: rgba(169, 114, 249, 0.3);
   --checkbox-border: #888;
   --checkbox-stroke: #aaa;
   --footer-text: #bbbbbb;
-  --nav-gradient-middle:rgb(228, 158, 228);
+  --nav-gradient-middle: rgb(228, 158, 228);
   --task-border: #3d3d52;
+
+  --priority-low: #6fb3ff;
+  --priority-medium: #d681f9;
+  --priority-high: #ff4d88;
+
+  --priority-low-bg: #2b3a50;
+  --priority-medium-bg: #54345e;
+  --priority-high-bg: #6e2e44;
+
   --smooth-transition: stroke 0.3s ease-in-out, stroke-width 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 body.light-theme {
   --background: linear-gradient(120deg, #f3d1ff, #ffe0f0, #f3d1ff);
-  --background-start: #f3d1ff; 
-  --background-end: #ffe0f0;   
+  --background-start: #f3d1ff;
+  --background-end: #ffe0f0;
   --background-animation-duration: 10s;
-  --secondary-color: #fff5fb; 
+  --secondary-color: #fff5fb;
   --accent-color: #ff94e1;
   --hover-color: #f26fc5;
   --text-color: #222035;
   --input-bg: #fff8fd;
-  --task-bg: #f7eaff; 
+  --task-bg: #f7eaff;
   --task-hover: #f3dbff;
   --border-color: #eccff4;
   --delete: #ff6b81;
@@ -55,5 +64,14 @@ body.light-theme {
   --footer-text: #884477;
   --nav-gradient-middle: #f5aaff;
   --task-border: #e8caff;
+
+  --priority-low: #4486c5;
+  --priority-medium: #c68c00;
+  --priority-high: #ff3e6c;
+
+  --priority-low-bg: #d5e9ff;
+  --priority-medium-bg: #ffe8ad;
+  --priority-high-bg: #ffd5dd;
+
   --smooth-transition: stroke 0.3s ease-in-out, stroke-width 0.3s ease-in-out, transform 0.3s ease-in-out;
-} 
+}

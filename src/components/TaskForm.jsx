@@ -9,7 +9,7 @@ export const TaskForm = ({ onAddTask }) => {
   const [tagInput, setTagInput] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [priority, setPriority] = useState('');
-  const [startDate, setStartDate] = useState('');
+  //const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
 
@@ -24,7 +24,6 @@ export const TaskForm = ({ onAddTask }) => {
       text: input,
       tags: selectedTags,
       priority: priority,
-      startDate,
       endDate,
     };
 
@@ -33,7 +32,7 @@ export const TaskForm = ({ onAddTask }) => {
     setSelectedTags([]);
     setTagInput('');
     setPriority('');
-    setStartDate('');
+    //setStartDate('');
     setEndDate('');
   };
 
@@ -98,7 +97,32 @@ export const TaskForm = ({ onAddTask }) => {
           )}
         </div>
 
-        <div className="priority-select">
+        <div className="priority-slider-group">
+          <label htmlFor="priority" className="form-label">Priority</label>
+          <div className="priority-slider" id="priority">
+            <span
+              className={`priority-option low ${priority === 'Low' ? 'active' : ''}`}
+              onClick={() => setPriority('Low')}
+            >
+              Low
+            </span>
+            <span
+              className={`priority-option medium ${priority === 'Medium' ? 'active' : ''}`}
+              onClick={() => setPriority('Medium')}
+            >
+              Medium
+            </span>
+            <span
+              className={`priority-option high ${priority === 'High' ? 'active' : ''}`}
+              onClick={() => setPriority('High')}
+            >
+              High
+            </span>
+          </div>
+        </div>
+
+
+        {/* <div className="priority-select">
           <select
             id="priority"
             value={priority}
@@ -110,10 +134,10 @@ export const TaskForm = ({ onAddTask }) => {
             <option value="Medium">Medium</option>
             <option value="High">High</option>
           </select>
-        </div>
+        </div> */}
 
-        <div className="date-row-container">
-          <div className="date-row">
+
+        {/* <div className="date-row">
             <label htmlFor="start-date">Start date:</label>
             <input
               type="date"
@@ -121,10 +145,10 @@ export const TaskForm = ({ onAddTask }) => {
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
             />
-          </div>
-
+          </div> */}
+        <div className="date-row-container">
           <div className="date-row">
-            <label htmlFor="end-date">End date:</label>
+            <label htmlFor="end-date" className='form-label '>Deadline</label>
             <input
               type="date"
               id="end-date"

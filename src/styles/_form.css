@@ -6,8 +6,8 @@
   padding: 20px;
   box-shadow: 0 0 10px var(--shadow-color);
   margin: 1rem;
-  position: relative; 
-  z-index: 10;  
+  position: relative;
+  z-index: 10;
 }
 
 .taskForm {
@@ -91,12 +91,12 @@
 .wrapper button svg {
   width: 1.5rem;
   height: 1.5rem;
-} 
+}
 
 .tag-select-container {
-  position: relative; 
+  position: relative;
   margin-top: 0.5rem;
-  z-index: 20; 
+  z-index: 20;
 }
 
 .selected-tags {
@@ -143,7 +143,7 @@
   max-height: 150px;
   overflow-y: auto;
   width: 100%;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   z-index: 999;
   border: 2px solid var(--border-color);
 
@@ -164,7 +164,79 @@
   padding: 0.5rem;
 }
 
-.priority-select {
+.priority-slider {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  gap: 0.5rem;
+}
+
+.priority-option {
+  flex: 1;
+  text-align: center;
+  padding: 0.5rem 0.7rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  user-select: none;
+  font-size: 0.95rem;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 1px 2px var(--shadow-light), inset 1px 1px 2px var(--shadow-inset-dark);
+}
+
+.priority-option.low {
+  color: var(--priority-low);
+}
+
+.priority-option.medium {
+  color: var(--priority-medium);
+}
+
+.priority-option.high {
+  color: var(--priority-high);
+}
+
+.priority-option.active.low {
+  background-color: var(--priority-low-bg);
+}
+
+.priority-option.active.medium {
+  background-color: var(--priority-medium-bg);
+}
+
+.priority-option.active.high {
+  background-color: var(--priority-high-bg);
+}
+
+.priority-option:hover {
+  background-color: var(--task-hover);
+  border-color: var(--accent-color);
+}
+
+.priority-option.active {
+  background-color: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+
+
+.priority-option:hover {
+  background-color: var(--task-hover);
+  border-color: var(--accent-color);
+}
+
+.priority-option.active {
+  background-color: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+
+/* select prio */
+
+/* .priority-select {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -173,45 +245,21 @@
 .priority-select label {
   font-weight: bold;
 }
-
-/* .priority-select {
-  margin: 1rem 0;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-} */
-
-/* .priority-select label {
-  font-weight: bold;
-} */
-
-/* .priority-select select {
-  padding: 0.4rem 0.8rem;
-  border-radius: 8px;
-  background-color: var(--secondary-color);
-  color: var(--text-color);
-  border: 1px solid var(--border-color);
-  transition: border-color 0.2s ease;
-} */
-
-/* .priority-select select:focus {
-  border-color: var(--accent-color);
-  outline: none;
-} */
+ */
 
 /* date picker */
 
 .date-row-container {
   display: flex;
   gap: 1rem;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 
 .date-row {
   display: flex;
   flex-direction: column;
-  flex: 1; 
-  min-width: 100px; 
+  flex: 1;
+  min-width: 100px;
 }
 
 .date-row label {
@@ -229,5 +277,19 @@
   font-size: 0.95rem;
 }
 
+.form-label {
+  display: block;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  margin-bottom: 0.3rem;
+  padding-left: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.85;
+}
 
-
+.priority-slider-group,
+.date-row-container {
+  margin-top: 0.5rem;
+}
