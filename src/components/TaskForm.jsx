@@ -9,7 +9,7 @@ export const TaskForm = ({ onAddTask }) => {
   const [tagInput, setTagInput] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [priority, setPriority] = useState('');
-  //const [startDate, setStartDate] = useState('');
+  const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
 
@@ -32,7 +32,7 @@ export const TaskForm = ({ onAddTask }) => {
     setSelectedTags([]);
     setTagInput('');
     setPriority('');
-    //setStartDate('');
+    setStartDate('');
     setEndDate('');
   };
 
@@ -137,16 +137,18 @@ export const TaskForm = ({ onAddTask }) => {
         </div> */}
 
 
-        {/* <div className="date-row">
-            <label htmlFor="start-date">Start date:</label>
+
+        <div className="date-row-container">
+          <div className="date-row">
+            <label htmlFor="start-date" className='form-label'>Start</label>
             <input
               type="date"
               id="start-date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
             />
-          </div> */}
-        <div className="date-row-container">
+          </div>
+
           <div className="date-row">
             <label htmlFor="end-date" className='form-label '>Deadline</label>
             <input

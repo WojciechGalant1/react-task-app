@@ -23,16 +23,16 @@ export const TaskItem = ({ task, onToggleComplete, onDelete }) => {
         {task.text} 
         {/* <span className="task-date">({formattedDate})</span> */}
 
-        {(task.endDate) && (
+        {(task.startDate) && (task.endDate) && (
           <div className="task-dates">
-            {/* {task.startDate && (
+            {task.startDate && (
               <div><strong>Start:</strong> {new Date(task.startDate).toLocaleDateString('pl-PL')} <strong>End:</strong> {new Date(task.endDate).toLocaleDateString('pl-PL')}</div>
-            )} */}
+            )}
 
-            {task.endDate && (
+            {/* {task.endDate && (
               <div><strong>End:</strong> {new Date(task.endDate).toLocaleDateString('pl-PL')}</div>
             )}
-            
+             */}
           </div>
         )}
       </label>
