@@ -1,12 +1,12 @@
-@import './_theme.css';
-@import './_navbar.css';
-@import './_tasks.css';
-@import './_form.css';
-@import './_controls.css';
-@import './_modal.css';
-@import './_responsive.css';
-@import './_footer.css';
-@import './_alert.css';
+@import './theme.css';
+@import './navbar.css';
+@import './tasks.css';
+@import './form.css';
+@import './controls.css';
+@import './modal.css';
+@import './responsive.css';
+@import './footer.css';
+@import './alert.css';
 
 * {
   box-sizing: border-box;
@@ -26,7 +26,6 @@ html {
 }
 
 body {
-  /* Use a dynamic gradient background that animates between start and end colors */
   background: linear-gradient(120deg, var(--background-start), var(--background-end), var(--background-start));
   background-size: 200% 200%;
   animation: themed-background-move var(--background-animation-duration) ease-in-out infinite alternate;
