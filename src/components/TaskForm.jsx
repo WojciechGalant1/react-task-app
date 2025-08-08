@@ -24,6 +24,7 @@ export const TaskForm = ({ onAddTask }) => {
       text: input,
       tags: selectedTags,
       priority: priority,
+      startDate,
       endDate,
     };
 
