@@ -8,31 +8,38 @@ export const TaskAdvancedControls = ({
   onClose
 }) => {
   return (
-    <div className="modal-backdrop" onClick={onClose}>
-      <div className="modal" onClick={(e) => e.stopPropagation()}>
+    <div className="modal" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <span className="close-button" onClick={onClose}>&times;</span>
         <h2>Advanced Options</h2>
 
-        <label>Search by name:</label>
-        <input
-          type="text"
-          className="search-input"
-          placeholder="e.g. groceries"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
+        <div className="option-row">
+          <span className="option-label">Search by name:</span>
+          <input
+            type="text"
+            className="search-input"
+            placeholder="e.g. groceries"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
 
-        <label>Group tasks by:</label>
-        <select
-          className="sort-select"
-          value={currentGroup}
-          onChange={(e) => setGroup(e.target.value)}
-        >
-          <option value="none">No grouping</option>
-          <option value="priority">Priority</option>
-          <option value="tags">Tags</option>
-        </select>
+        <div className="option-row">
+          <span className="option-label">Group tasks by:</span>
+          <select
+            className="sort-select"
+            value={currentGroup}
+            onChange={(e) => setGroup(e.target.value)}
+          >
+            <option value="none">No grouping</option>
+            <option value="priority">Priority</option>
+            <option value="tags">Tags</option>
+          </select>
+        </div>
 
-        <button className="button" onClick={onClose}>Close</button>
+        <div className="modal-buttons">
+          <button className="cancel-btn" onClick={onClose}>Close</button>
+        </div>
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import { TaskList } from '../components/TaskList';
 import { TaskControls } from '../components/TaskControls';
 import { Header } from '../components/Header';
 import { OptionsModal } from '../components/OptionsModal';
+import { TaskAdvancedControls } from '../components/TaskAdvancedControls';
 import { Background } from '../components/Background';
 import { Footer } from '../components/Footer';
 import { useAlert } from '../components/AlertProvider';
@@ -21,12 +22,16 @@ const Home = () => {
     setFilter,
     sort,
     setSort,
+    searchQuery,
+    setSearchQuery,
     clearAllTasks,
   } = useTasks();
 
   const { showAlert } = useAlert();
   const { theme, toggleTheme } = useTheme();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
+  const [group, setGroup] = useState('none');
   const [confirmModal, setConfirmModal] = useState({ isOpen: false, message: '', onConfirm: null });
 
   const openConfirm = (message, onConfirm) => {
@@ -80,6 +85,16 @@ const Home = () => {
         onClearAll={handleClearAllTasks}
       />
 
+      {isAdvancedOpen && (
+        <TaskAdvancedControls
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          currentGroup={group}
+          setGroup={setGroup}
+          onClose={() => setIsAdvancedOpen(false)}
+        />
+      )}
+
       <main>
         <div>
           <br />
@@ -89,11 +104,15 @@ const Home = () => {
             setFilter={setFilter}
             currentSort={sort}
             setSort={setSort}
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            onOpenAdvanced={() => setIsAdvancedOpen(true)}
           />
           <TaskList
             tasks={tasks}
             onToggleComplete={handleComplete}
             onDelete={handleDelete}
+            groupBy={group}
           />
         </div>
 

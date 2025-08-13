@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { filterTasks } from '../utils/filter';
 import { sortTasks } from '../utils/sort';
+import { searchTasks } from '../utils/search';
 
 export const useTasks = () => {
 
   const [filter, setFilter] = useState('all');     // 'all' | 'completed' | 'unfinished'
   const [sort, setSort] = useState('newest');      // 'newest' | 'oldest' | 'az' | 'za'
+  const [searchQuery, setSearchQuery] = useState(''); // free-text search by task name
 
   const [tasks, setTasks] = useState(() => {
     try {
@@ -50,8 +52,10 @@ export const useTasks = () => {
     );
   };
 
+  const tasksAfterSearch = searchTasks(tasks, searchQuery);
+
   const visibleTasks = sortTasks(
-    filterTasks(tasks, filter),
+    filterTasks(tasksAfterSearch, filter),
     sort
   );
 
@@ -70,6 +74,8 @@ export const useTasks = () => {
     setFilter,
     sort,
     setSort,
+    searchQuery,
+    setSearchQuery,
     clearAllTasks,
   };
 };
