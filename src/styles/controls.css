@@ -97,3 +97,8 @@ body.light-theme .sort-select {
   border-color: var(--accent-color);
   box-shadow: 0 0 0 2px var(--input-focus-outline);
 }
+
+.filter-row {
+  display: flex;
+  justify-content: space-between; 
+}
