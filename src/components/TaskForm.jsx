@@ -19,6 +19,8 @@ export const TaskForm = ({ onAddTask }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (input.trim().length === 0) return;
+    if (selectedTags.length === 0) return;
+    if (!priority) return;
 
     const task = {
       text: input,
@@ -164,7 +166,7 @@ export const TaskForm = ({ onAddTask }) => {
         <button
           type="submit"
           id="addBtn"
-          disabled={input.trim().length === 0}
+          disabled={input.trim().length === 0 || selectedTags.length === 0 || !priority}
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none"
             viewBox="0 0 24 24" strokeWidth="1.5"
