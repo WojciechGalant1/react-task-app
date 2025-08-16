@@ -8,6 +8,9 @@ export const useTasks = () => {
   const [filter, setFilter] = useState('all');     // 'all' | 'completed' | 'unfinished'
   const [sort, setSort] = useState('newest');      // 'newest' | 'oldest' | 'az' | 'za'
   const [searchQuery, setSearchQuery] = useState(''); // free-text search by task name
+  const [priorityFilter, setPriorityFilter] = useState('any'); // 'any' | 'low' | 'medium' | 'high'
+  const [dateFrom, setDateFrom] = useState(''); // ISO yyyy-mm-dd
+  const [dateTo, setDateTo] = useState('');     // ISO yyyy-mm-dd
 
   const [tasks, setTasks] = useState(() => {
     try {
@@ -54,10 +57,36 @@ export const useTasks = () => {
 
   const tasksAfterSearch = searchTasks(tasks, searchQuery);
 
-  const visibleTasks = sortTasks(
-    filterTasks(tasksAfterSearch, filter),
-    sort
-  );
+  const tasksAfterStatus = filterTasks(tasksAfterSearch, filter);
+
+  const fromTs = dateFrom ? Date.parse(dateFrom) : null;
+  const toTs = dateTo ? Date.parse(dateTo) : null;
+
+  const tasksAfterAdvancedFilters = tasksAfterStatus.filter((task) => {
+    const currentPriority = (task.priority || '').toLowerCase();
+    const matchesPriority = priorityFilter === 'any' || currentPriority === priorityFilter;
+
+    // Date range filter: keep tasks within [dateFrom, dateTo]
+    // We check task's startDate and endDate if present; missing dates don't exclude the task.
+    const taskStart = task.startDate ? Date.parse(task.startDate) : null;
+    const taskEnd = task.endDate ? Date.parse(task.endDate) : null;
+
+    let matchesFrom = true;
+    if (fromTs != null) {
+      // If task has an endDate, ensure it ends on/after fromTs; otherwise allow
+      matchesFrom = taskEnd == null || taskEnd >= fromTs;
+    }
+
+    let matchesTo = true;
+    if (toTs != null) {
+      // If task has a startDate, ensure it starts on/before toTs; otherwise allow
+      matchesTo = taskStart == null || taskStart <= toTs;
+    }
+
+    return matchesPriority && matchesFrom && matchesTo;
+  });
+
+  const visibleTasks = sortTasks(tasksAfterAdvancedFilters, sort);
 
   const clearAllTasks = () => {
     localStorage.removeItem('tasks');
@@ -76,96 +105,13 @@ export const useTasks = () => {
     setSort,
     searchQuery,
     setSearchQuery,
+    priorityFilter,
+    setPriorityFilter,
+    dateFrom,
+    setDateFrom,
+    dateTo,
+    setDateTo,
     clearAllTasks,
   };
 };
-
-//const [tasks, setTasks] = useState([]);
-// Load from localStorage on mount
-// useEffect(() => {
-//   try {
-//     const stored = localStorage.getItem('tasks');
-//     if (stored) setTasks(JSON.parse(stored));
-//   } catch (e) {
-//     console.error('Failed to parse tasks from localStorage:', e);
-//   }
-// }, []);
-
-
-// import { useState, useEffect } from 'react';
-
-// export const useTasks = () => {
-//   const [tasks, setTasks] = useState([]);
-//   const [filter, setFilter] = useState('all');
-//   const [sort, setSort] = useState('newest');
-
-//   // Load tasks from localStorage once
-//   useEffect(() => {
-//     const saved = localStorage.getItem('tasks');
-//     if (saved) {
-//       try {
-//         setTasks(JSON.parse(saved));
-//       } catch (e) {
-//         console.error('Failed to parse tasks:', e);
-//       }
-//     }
-//   }, []);
-
-//   // Save tasks whenever they change
-//   useEffect(() => {
-//     localStorage.setItem('tasks', JSON.stringify(tasks));
-//   }, [tasks]);
-
-//   const addTask = (text) => {
-//     const newTask = {
-//       id: Date.now(),
-//       text: text.trim(),
-//       completed: false,
-//     };
-//     setTasks((prev) => [newTask, ...prev]);
-//   };
-
-//   const deleteTask = (id) => {
-//     setTasks((prev) => prev.filter((task) => task.id !== id));
-//   };
-
-//   const toggleComplete = (id) => {
-//     setTasks((prev) =>
-//       prev.map((task) =>
-//         task.id === id ? { ...task, completed: !task.completed } : task
-//       )
-//     );
-//   };
-
-//   const filteredTasks = tasks.filter((task) => {
-//     if (filter === 'completed') return task.completed;
-//     if (filter === 'unfinished') return !task.completed;
-//     return true;
-//   });
-
-//   const sortedTasks = [...filteredTasks].sort((a, b) => {
-//     switch (sort) {
-//       case 'az':
-//         return a.text.localeCompare(b.text);
-//       case 'za':
-//         return b.text.localeCompare(a.text);
-//       case 'oldest':
-//         return a.id - b.id;
-//       case 'newest':
-//       default:
-//         return b.id - a.id;
-//     }
-//   });
-
-//   return {
-//     tasks: sortedTasks,
-//     addTask,
-//     deleteTask,
-//     toggleComplete,
-//     filter,
-//     setFilter,
-//     sort,
-//     setSort,
-//   };
-// };
 

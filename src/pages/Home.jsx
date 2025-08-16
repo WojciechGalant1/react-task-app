@@ -24,6 +24,12 @@ const Home = () => {
     setSort,
     searchQuery,
     setSearchQuery,
+    priorityFilter,
+    setPriorityFilter,
+    dateFrom,
+    setDateFrom,
+    dateTo,
+    setDateTo,
     clearAllTasks,
   } = useTasks();
 
@@ -87,10 +93,16 @@ const Home = () => {
 
       {isAdvancedOpen && (
         <TaskAdvancedControls
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
           currentGroup={group}
           setGroup={setGroup}
+          priorityFilter={priorityFilter}
+          setPriorityFilter={setPriorityFilter}
+          dateFrom={dateFrom}
+          setDateFrom={setDateFrom}
+          dateTo={dateTo}
+          setDateTo={setDateTo}
+          setFilter={setFilter}
+          setSearchQuery={setSearchQuery}
           onClose={() => setIsAdvancedOpen(false)}
         />
       )}

@@ -181,3 +181,87 @@ input:checked+.slider:before {
 .cancel-btn:hover {
   opacity: 0.9;
 }
+
+/* Advanced modal date range styling */
+.option-row input[type="date"] {
+  background: var(--input-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: var(--text-color);
+  font-size: 14px;
+  transition: all 0.2s ease;
+  min-width: 140px;
+}
+
+.option-row input[type="date"]:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px var(--input-focus-outline);
+  transform: translateY(-1px);
+}
+
+.option-row input[type="date"]:hover {
+  border-color: var(--hover-color);
+}
+
+.option-row .date-separator {
+  color: var(--text-color);
+  opacity: 0.7;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 8px;
+  user-select: none;
+}
+
+/* Enhanced option row for date range */
+.option-row.date-range-row {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.date-range-label {
+  font-weight: 500;
+  color: var(--text-color);
+  margin-bottom: 4px;
+}
+
+.date-inputs-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.date-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.date-input-label {
+  font-size: 12px;
+  color: var(--text-color);
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+.date-input-group input[type="date"] {
+  width: 100%;
+  min-width: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .date-inputs-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .date-separator {
+    text-align: center;
+    margin: 4px 0;
+  }
+}

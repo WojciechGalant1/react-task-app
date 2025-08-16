@@ -52,7 +52,7 @@ export const TaskControls = ({
         </select>
 
         <button className="button advanced-button" onClick={onOpenAdvanced}>
-          ⚙️ Advanced
+          ⚙️ More
         </button>
       </div>
     </div>
