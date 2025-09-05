@@ -7,6 +7,7 @@ export const TaskForm = ({ onAddTask }) => {
   const [input, setInput] = useState('');
   const [selectedTags, setSelectedTags] = useState([]);
   const [tagInput, setTagInput] = useState('');
+  const [taskDetails, setTaskDetails] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [priority, setPriority] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -26,12 +27,14 @@ export const TaskForm = ({ onAddTask }) => {
       text: input,
       tags: selectedTags,
       priority: priority,
+      details: taskDetails,
       startDate,
       endDate,
     };
 
     onAddTask(task);
     setInput('');
+    setTaskDetails('');
     setSelectedTags([]);
     setTagInput('');
     setPriority('');
@@ -57,6 +60,7 @@ export const TaskForm = ({ onAddTask }) => {
   return (
     <div className="wrapper">
       <form onSubmit={handleSubmit} className="taskForm" autoComplete="off">
+
         <input
           type="text"
           value={input}
@@ -100,6 +104,17 @@ export const TaskForm = ({ onAddTask }) => {
           )}
         </div>
 
+        <div className="task-details-container">
+          <label htmlFor="taskDetails" className="form-label">Task details</label>
+          <textarea
+            type="textarea"
+            value={taskDetails}
+            onChange={(e) => setTaskDetails(e.target.value)}
+            id="taskDetails"
+            placeholder="Task details..."
+          />
+        </div>
+
         <div className="priority-slider-group">
           <label htmlFor="priority" className="form-label">Priority</label>
           <div className="priority-slider" id="priority">
@@ -123,23 +138,6 @@ export const TaskForm = ({ onAddTask }) => {
             </span>
           </div>
         </div>
-
-
-        {/* <div className="priority-select">
-          <select
-            id="priority"
-            value={priority}
-            onChange={(e) => setPriority(e.target.value)}
-            className="sort-select"
-          >
-            <option value="" disabled>Choose priority</option>
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
-          </select>
-        </div> */}
-
-
 
         <div className="date-row-container">
           <div className="date-row">

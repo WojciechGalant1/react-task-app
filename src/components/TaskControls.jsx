@@ -7,27 +7,23 @@ export const TaskControls = ({
   setSort,
   searchQuery,
   setSearchQuery,
-  searchMethod,
-  setSearchMethod,
   onOpenAdvanced
 }) => {
   return (
     <div className="task-controls">
       
       <div className="btn-group">
-        <select
-          className="sort-select"
-          value={searchMethod}
-          onChange={(e) => setSearchMethod(e.target.value)}
-        >
-          <option value="name">By name</option>
-          <option value="tag">By tag</option>
-        </select>
-        
+      <select
+            className="sort-select"
+          >
+            <option value="">By name</option>
+            <option value="">By tag</option>
+          </select>
+          
         <input
           type="text"
           className="search-input"
-          placeholder={searchMethod === 'tag' ? "Search by tag..." : "Search by name..."}
+          placeholder="Search by name..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />

@@ -8,7 +8,6 @@ export const useTasks = () => {
   const [filter, setFilter] = useState('all');     // 'all' | 'completed' | 'unfinished'
   const [sort, setSort] = useState('newest');      // 'newest' | 'oldest' | 'az' | 'za'
   const [searchQuery, setSearchQuery] = useState(''); // free-text search by task name
-  const [searchMethod, setSearchMethod] = useState('name'); // 'name' | 'tag'
   const [priorityFilter, setPriorityFilter] = useState('any'); // 'any' | 'low' | 'medium' | 'high'
   const [dateFrom, setDateFrom] = useState(''); // ISO yyyy-mm-dd
   const [dateTo, setDateTo] = useState('');     // ISO yyyy-mm-dd
@@ -28,7 +27,7 @@ export const useTasks = () => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
 
-  const addTask = ({ text, tags = [], priority = "Low", startDate = "", endDate = "" }) => {
+  const addTask = ({ text, tags = [], priority = "Low", details = "", startDate = "", endDate = "" }) => {
     const trimmed = text.trim();
     if (trimmed.length === 0) return;
 
@@ -38,6 +37,7 @@ export const useTasks = () => {
       completed: false,
       tags,
       priority,
+      details,
       startDate,
       endDate,
     };
@@ -56,7 +56,7 @@ export const useTasks = () => {
     );
   };
 
-  const tasksAfterSearch = searchTasks(tasks, searchQuery, searchMethod);
+  const tasksAfterSearch = searchTasks(tasks, searchQuery);
 
   const tasksAfterStatus = filterTasks(tasksAfterSearch, filter);
 
@@ -106,8 +106,6 @@ export const useTasks = () => {
     setSort,
     searchQuery,
     setSearchQuery,
-    searchMethod,
-    setSearchMethod,
     priorityFilter,
     setPriorityFilter,
     dateFrom,

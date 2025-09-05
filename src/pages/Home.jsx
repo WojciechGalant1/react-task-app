@@ -24,8 +24,6 @@ const Home = () => {
     setSort,
     searchQuery,
     setSearchQuery,
-    searchMethod,
-    setSearchMethod,
     priorityFilter,
     setPriorityFilter,
     dateFrom,
@@ -120,8 +118,6 @@ const Home = () => {
             setSort={setSort}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
-            searchMethod={searchMethod}
-            setSearchMethod={setSearchMethod}
             onOpenAdvanced={() => setIsAdvancedOpen(true)}
           />
           <TaskList
