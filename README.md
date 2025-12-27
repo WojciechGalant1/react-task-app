@@ -25,7 +25,7 @@ This app is a full React-based rewrite and enhancement of my previous Vanilla JS
 -  **Animated Alerts** — Context-aware toast notifications for all actions
 -  **Auto-dismiss** — 4-second timeout with visual progress bar
 -  **Confirmation Modals** — Safety checks for destructive actions
-- 💡 **Smart Suggestions** — Tag autocomplete with filtering
+-  **Smart Suggestions** — Tag autocomplete with filtering
 
 ###  **Advanced Features**
 -  **Persistent Storage** — Tasks, theme, and preferences saved in localStorage
