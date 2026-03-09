@@ -4,36 +4,36 @@ A modern, feature-rich todo application built with React, Vite, and modular CSS.
 Supports light/dark themes, task tagging, priority management, animated backgrounds, and comprehensive task organization.
 This app is a full React-based rewrite and enhancement of my previous Vanilla JS Todo App.
 
-## ✨ Features
+## Features
 
-### 🎯 **Task Management**
-- ✅ **Add, complete, delete, and clear all tasks**
-- 🏷️ **Task Tags** — 25+ predefined categories with smart suggestions
-- ⚡ **Priority Levels** — Visual priority slider (Low/Medium/High) with color coding
-- 📅 **Deadline Support** — Set and track task deadlines
-- 🔍 **Advanced Filtering** — Filter by completion status (All/Completed/Unfinished)
-- 📊 **Smart Sorting** — Sort by A-Z, Z-A, Newest, or Oldest
+### **Task Management**
+-  **Add, complete, delete, and clear all tasks**
+-  **Task Tags** — 25+ predefined categories with smart suggestions
+-  **Priority Levels** — Visual priority slider (Low/Medium/High) with color coding
+-  **Deadline Support** — Set and track task deadlines
+-  **Advanced Filtering** — Filter by completion status (All/Completed/Unfinished)
+-  **Smart Sorting** — Sort by A-Z, Z-A, Newest, or Oldest
 
-### 🎨 **Visual Experience**
-- 🌗 **Light/Dark Theme** — Toggle with smooth animated backgrounds, persists across sessions
-- 🌊 **Animated Background** — Canvas-based floating bubbles that adapt to theme colors
-- 🎭 **Smooth Animations** — 60fps animations with CSS transitions and transforms
-- 📱 **Responsive Design** — Optimized for desktop, tablet, and mobile devices
-- 🎯 **Modern UI** — Clean, accessible, and visually appealing interface
+###  **Visual Experience**
+-  **Light/Dark Theme** — Toggle with smooth animated backgrounds, persists across sessions
+-  **Animated Background** — Canvas-based floating bubbles that adapt to theme colors
+-  **Smooth Animations** — 60fps animations with CSS transitions and transforms
+-  **Responsive Design** — Optimized for desktop, tablet, and mobile devices
+-  **Modern UI** — Clean, accessible, and visually appealing interface
 
-### 🔔 **User Feedback**
-- 🚨 **Animated Alerts** — Context-aware toast notifications for all actions
-- ⏱️ **Auto-dismiss** — 4-second timeout with visual progress bar
-- ✅ **Confirmation Modals** — Safety checks for destructive actions
-- 💡 **Smart Suggestions** — Tag autocomplete with filtering
+###  **User Feedback**
+-  **Animated Alerts** — Context-aware toast notifications for all actions
+-  **Auto-dismiss** — 4-second timeout with visual progress bar
+-  **Confirmation Modals** — Safety checks for destructive actions
+-  **Smart Suggestions** — Tag autocomplete with filtering
 
-### 🛠️ **Advanced Features**
-- 💾 **Persistent Storage** — Tasks, theme, and preferences saved in localStorage
-- 🎛️ **Options Modal** — Centralized theme and memory controls
-- 🧩 **Modular Architecture** — Clean component separation and reusable hooks
-- 🔧 **Developer Friendly** — Well-organized codebase with modern React patterns
+###  **Advanced Features**
+-  **Persistent Storage** — Tasks, theme, and preferences saved in localStorage
+-  **Options Modal** — Centralized theme and memory controls
+-  **Modular Architecture** — Clean component separation and reusable hooks
+-  **Developer Friendly** — Well-organized codebase with modern React patterns
 
-## 🏗️ Project Structure
+##  Project Structure
 
 ```
 src/
@@ -70,7 +70,7 @@ src/
 └── App.jsx             # Root component with providers
 ```
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 - Node.js 16+ 
@@ -118,7 +118,7 @@ src/
 - **Clear All**: Use the "Clear local memory" option in settings
 - **Tags**: 25+ predefined categories including Work, Personal, Urgent, Shopping, etc.
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### Frontend
 - **React 18+** — Modern React with hooks and context
@@ -137,7 +137,7 @@ src/
 - **Git** — Version control
 - **Responsive Design** — Mobile-first approach
 
-## 🎯 Key Features Explained
+##  Key Features Explained
 
 ### Animated Background
 - **Canvas-based bubbles** that float upward with gentle drift
@@ -163,11 +163,9 @@ src/
 - **Progress indicator** showing time until auto-dismiss
 - **High z-index** ensuring visibility
 
-## 🔮 Future Enhancements
+##  Future Enhancements
 
 ### Planned Features
-- [ ] **Task Categories** — Group tasks by tags or priority
-- [ ] **Search Functionality** — Search through task text and tags
 - [ ] **Task Editing** — In-place editing of existing tasks
 - [ ] **Data Export** — Export tasks to JSON/CSV format
 - [ ] **Task Templates** — Predefined task templates
@@ -182,9 +180,8 @@ src/
 - [ ] **Performance Monitoring** — Analytics and performance tracking
 
 Potential Improvements
-Task Filtering: Filter by tags, priority, or date ranges
-Task Categories: Group tasks by tags or priority
-Search Functionality: Search through task text and tags
+
+
 Task Editing: In-place editing of existing tasks
 Data Export: Export tasks to JSON/CSV
 Keyboard Shortcuts: Quick actions with keyboard
