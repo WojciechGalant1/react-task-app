@@ -1,102 +1,174 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { filterTasks } from '../utils/filter';
 import { sortTasks } from '../utils/sort';
 import { searchTasks } from '../utils/search';
+import { api } from '../utils/api';
+import { useAuth } from '../context/AuthContext';
 
 export const useTasks = () => {
+  const { user } = useAuth();
+  
+  const [filter, setFilter] = useState('all');
+  const [sort, setSort] = useState('newest');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [priorityFilter, setPriorityFilter] = useState('any');
+  const [dateFrom, setDateFrom] = useState('');
+  const [dateTo, setDateTo] = useState('');
 
-  const [filter, setFilter] = useState('all');     // 'all' | 'completed' | 'unfinished'
-  const [sort, setSort] = useState('newest');      // 'newest' | 'oldest' | 'az' | 'za'
-  const [searchQuery, setSearchQuery] = useState(''); // free-text search by task name
-  const [priorityFilter, setPriorityFilter] = useState('any'); // 'any' | 'low' | 'medium' | 'high'
-  const [dateFrom, setDateFrom] = useState(''); // ISO yyyy-mm-dd
-  const [dateTo, setDateTo] = useState('');     // ISO yyyy-mm-dd
+  const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const [tasks, setTasks] = useState(() => {
+  // Load guest tasks from localStorage
+  const getGuestTasks = () => {
     try {
-      const stored = localStorage.getItem('tasks');
+      const stored = localStorage.getItem('guest_tasks');
       return stored ? JSON.parse(stored) : [];
     } catch (e) {
-      console.error('Failed to parse tasks from localStorage:', e);
+      console.error('Failed to parse guest tasks:', e);
       return [];
     }
-  });
+  };
 
-  // Save to localStorage on change
+  // Save guest tasks to localStorage
+  const saveGuestTasks = (newTasks) => {
+    localStorage.setItem('guest_tasks', JSON.stringify(newTasks));
+  };
+
+  // Fetch tasks based on login status
+  const fetchTasks = useCallback(async () => {
+    setLoading(true);
+    if (user) {
+      try {
+        const data = await api.get('/tasks');
+        setTasks(data);
+      } catch (e) {
+        console.error('Failed to fetch tasks from API:', e);
+      }
+    } else {
+      setTasks(getGuestTasks());
+    }
+    setLoading(false);
+  }, [user]);
+
   useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-  }, [tasks]);
+    fetchTasks();
+  }, [fetchTasks]);
 
-  const addTask = ({ text, tags = [], priority = "Low", details = "", startDate = "", endDate = "" }) => {
+  const addTask = async ({ text, tags = [], priority = "Low", details = "", startDate = "", endDate = "" }) => {
     const trimmed = text.trim();
     if (trimmed.length === 0) return;
 
-    const newTask = {
-      id: Date.now(),
-      text: trimmed,
-      completed: false,
-      tags,
-      priority,
-      details,
-      startDate,
-      endDate,
-    };
-    setTasks((prev) => [newTask, ...prev]);
-  };
-
-  const deleteTask = (id) => {
-    setTasks((prev) => prev.filter((task) => task.id !== id));
-  };
-
-  const toggleComplete = (id) => {
-    setTasks((prev) =>
-      prev.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
-    );
-  };
-
-  const tasksAfterSearch = searchTasks(tasks, searchQuery);
-
-  const tasksAfterStatus = filterTasks(tasksAfterSearch, filter);
-
-  const fromTs = dateFrom ? Date.parse(dateFrom) : null;
-  const toTs = dateTo ? Date.parse(dateTo) : null;
-
-  const tasksAfterAdvancedFilters = tasksAfterStatus.filter((task) => {
-    const currentPriority = (task.priority || '').toLowerCase();
-    const matchesPriority = priorityFilter === 'any' || currentPriority === priorityFilter;
-
-    // Date range filter: keep tasks within [dateFrom, dateTo]
-    // We check task's startDate and endDate if present; missing dates don't exclude the task.
-    const taskStart = task.startDate ? Date.parse(task.startDate) : null;
-    const taskEnd = task.endDate ? Date.parse(task.endDate) : null;
-
-    let matchesFrom = true;
-    if (fromTs != null) {
-      // If task has an endDate, ensure it ends on/after fromTs; otherwise allow
-      matchesFrom = taskEnd == null || taskEnd >= fromTs;
+    if (user) {
+      try {
+        const newTask = await api.post('/tasks', {
+          text: trimmed,
+          tags,
+          priority,
+          details,
+          startDate,
+          endDate,
+        });
+        setTasks((prev) => [newTask, ...prev]);
+      } catch (e) {
+        console.error('Failed to add task to API:', e);
+      }
+    } else {
+      const newTask = {
+        id: Date.now(), // Local ID for guests
+        text: trimmed,
+        completed: false,
+        tags,
+        priority,
+        details,
+        startDate,
+        endDate,
+        userId: null
+      };
+      const updated = [newTask, ...tasks];
+      setTasks(updated);
+      saveGuestTasks(updated);
     }
+  };
 
-    let matchesTo = true;
-    if (toTs != null) {
-      // If task has a startDate, ensure it starts on/before toTs; otherwise allow
-      matchesTo = taskStart == null || taskStart <= toTs;
+  const deleteTask = async (id) => {
+    if (user) {
+      try {
+        await api.delete(`/tasks/${id}`);
+        setTasks((prev) => prev.filter((task) => task.id !== id));
+      } catch (e) {
+        console.error('Failed to delete task from API:', e);
+      }
+    } else {
+      const updated = tasks.filter((task) => task.id !== id);
+      setTasks(updated);
+      saveGuestTasks(updated);
     }
+  };
 
-    return matchesPriority && matchesFrom && matchesTo;
-  });
+  const toggleComplete = async (id) => {
+    const task = tasks.find(t => t.id === id);
+    if (!task) return;
 
-  const visibleTasks = sortTasks(tasksAfterAdvancedFilters, sort);
+    if (user) {
+      try {
+        const updatedTask = await api.patch(`/tasks/${id}`, {
+          completed: !task.completed
+        });
+        setTasks((prev) =>
+          prev.map((t) => (t.id === id ? updatedTask : t))
+        );
+      } catch (e) {
+        console.error('Failed to toggle completion on API:', e);
+      }
+    } else {
+      const updated = tasks.map((t) =>
+        t.id === id ? { ...t, completed: !t.completed } : t
+      );
+      setTasks(updated);
+      saveGuestTasks(updated);
+    }
+  };
+
+  const visibleTasks = useMemo(() => {
+    const tasksAfterSearch = searchTasks(tasks, searchQuery);
+    const tasksAfterStatus = filterTasks(tasksAfterSearch, filter);
+
+    const fromTs = dateFrom ? Date.parse(dateFrom) : null;
+    const toTs = dateTo ? Date.parse(dateTo) : null;
+
+    const tasksAfterAdvancedFilters = tasksAfterStatus.filter((task) => {
+      const currentPriority = (task.priority || '').toLowerCase();
+      const matchesPriority = priorityFilter === 'any' || currentPriority === priorityFilter;
+
+      const taskStart = task.startDate ? Date.parse(task.startDate) : null;
+      const taskEnd = task.endDate ? Date.parse(task.endDate) : null;
+
+      let matchesFrom = true;
+      if (fromTs != null) {
+        matchesFrom = taskEnd == null || taskEnd >= fromTs;
+      }
+
+      let matchesTo = true;
+      if (toTs != null) {
+        matchesTo = taskStart == null || taskStart <= toTs;
+      }
+
+      return matchesPriority && matchesFrom && matchesTo;
+    });
+
+    return sortTasks(tasksAfterAdvancedFilters, sort);
+  }, [tasks, filter, sort, searchQuery, priorityFilter, dateFrom, dateTo]);
 
   const clearAllTasks = () => {
-    localStorage.removeItem('tasks');
+    if (!user) {
+      localStorage.removeItem('guest_tasks');
+    }
     setTasks([]);
   };
 
-
   return {
     tasks: visibleTasks,
+    loading,
     addTask,
     deleteTask,
     toggleComplete,

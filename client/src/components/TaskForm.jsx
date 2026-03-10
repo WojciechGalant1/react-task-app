@@ -1,7 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-
-const allTags = ['Work', 'Personal', 'Urgent', 'Shopping', 'Health', 'Coding', 'Study', 'Fun', 'Home', 'Finance', 'Fitness', 'Appointments', 'Chores', 'Projects', 'Reading',
-  'Learning', 'Travel', 'Ideas', 'Meeting', 'Errands', 'Social', 'Birthday', 'Cleaning', 'Goals', 'Planning'];
+import React, { useState, useRef, useId } from 'react';
+import { ALL_TAGS } from '../utils/constants';
 
 export const TaskForm = ({ onAddTask }) => {
   const [input, setInput] = useState('');
@@ -13,9 +11,12 @@ export const TaskForm = ({ onAddTask }) => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
-
-  const tagRef = useRef(null);
-
+  const taskNameId = useId();
+  const tagInputId = useId();
+  const taskDetailsId = useId();
+  const priorityId = useId();
+  const startDateId = useId();
+  const endDateId = useId();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,7 +43,7 @@ export const TaskForm = ({ onAddTask }) => {
     setEndDate('');
   };
 
-  const filteredTagOptions = allTags.filter(
+  const filteredTagOptions = ALL_TAGS.filter(
     tag =>
       tag.toLowerCase().includes(tagInput.toLowerCase()) &&
       !selectedTags.includes(tag)
@@ -60,12 +61,12 @@ export const TaskForm = ({ onAddTask }) => {
   return (
     <div className="wrapper">
       <form onSubmit={handleSubmit} className="taskForm" autoComplete="off">
-
+        <label htmlFor={taskNameId} className="sr-only">Task name</label>
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          id="taskInpt"
+          id={taskNameId}
           placeholder="Task name..."
         />
 
@@ -74,13 +75,21 @@ export const TaskForm = ({ onAddTask }) => {
             {selectedTags.map(tag => (
               <span key={tag} className="selected-tag">
                 {tag}
-                <button type="button" onClick={() => handleRemoveTag(tag)}>×</button>
+                <button 
+                  type="button" 
+                  onClick={() => handleRemoveTag(tag)}
+                  aria-label={`Remove tag ${tag}`}
+                >
+                  ×
+                </button>
               </span>
             ))}
           </div>
 
+          <label htmlFor={tagInputId} className="sr-only">Add task category</label>
           <input
             type="text"
+            id={tagInputId}
             value={tagInput}
             onChange={(e) => setTagInput(e.target.value)}
             onFocus={() => setIsFocused(true)}
@@ -90,49 +99,65 @@ export const TaskForm = ({ onAddTask }) => {
           />
 
           {isFocused && tagInput && (
-            <ul className="tag-suggestions">
+            <ul className="tag-suggestions" role="listbox">
               {filteredTagOptions.length > 0 ? (
                 filteredTagOptions.map(tag => (
-                  <li key={tag} onMouseDown={() => handleAddTag(tag)}>
+                  <li 
+                    key={tag} 
+                    onMouseDown={() => handleAddTag(tag)}
+                    role="option"
+                    aria-selected="false"
+                  >
                     {tag}
                   </li>
                 ))
               ) : (
-                <li className="no-match">No matching tags</li>
+                <li className="no-match" role="status">No matching tags</li>
               )}
             </ul>
           )}
         </div>
 
         <div className="task-details-container">
-          <label htmlFor="taskDetails" className="form-label">Task details</label>
+          <label htmlFor={taskDetailsId} className="form-label">Task details</label>
           <textarea
-            type="textarea"
             value={taskDetails}
             onChange={(e) => setTaskDetails(e.target.value)}
-            id="taskDetails"
+            id={taskDetailsId}
             placeholder="Task details..."
           />
         </div>
 
         <div className="priority-slider-group">
-          <label htmlFor="priority" className="form-label">Priority</label>
-          <div className="priority-slider" id="priority">
+          <label id={priorityId} className="form-label">Priority</label>
+          <div className="priority-slider" aria-labelledby={priorityId} role="group">
             <span
               className={`priority-option low ${priority === 'Low' ? 'active' : ''}`}
               onClick={() => setPriority('Low')}
+              role="button"
+              tabIndex="0"
+              aria-pressed={priority === 'Low'}
+              onKeyDown={(e) => e.key === 'Enter' && setPriority('Low')}
             >
               Low
             </span>
             <span
               className={`priority-option medium ${priority === 'Medium' ? 'active' : ''}`}
               onClick={() => setPriority('Medium')}
+              role="button"
+              tabIndex="0"
+              aria-pressed={priority === 'Medium'}
+              onKeyDown={(e) => e.key === 'Enter' && setPriority('Medium')}
             >
               Medium
             </span>
             <span
               className={`priority-option high ${priority === 'High' ? 'active' : ''}`}
               onClick={() => setPriority('High')}
+              role="button"
+              tabIndex="0"
+              aria-pressed={priority === 'High'}
+              onKeyDown={(e) => e.key === 'Enter' && setPriority('High')}
             >
               High
             </span>
@@ -141,20 +166,20 @@ export const TaskForm = ({ onAddTask }) => {
 
         <div className="date-row-container">
           <div className="date-row">
-            <label htmlFor="start-date" className='form-label'>Start</label>
+            <label htmlFor={startDateId} className='form-label'>Start</label>
             <input
               type="date"
-              id="start-date"
+              id={startDateId}
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
             />
           </div>
 
           <div className="date-row">
-            <label htmlFor="end-date" className='form-label '>Deadline</label>
+            <label htmlFor={endDateId} className='form-label '>Deadline</label>
             <input
               type="date"
-              id="end-date"
+              id={endDateId}
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
             />
@@ -168,7 +193,7 @@ export const TaskForm = ({ onAddTask }) => {
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none"
             viewBox="0 0 24 24" strokeWidth="1.5"
-            stroke="currentColor" className="size-6">
+            stroke="currentColor" className="size-6" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round"
               d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
           </svg>
